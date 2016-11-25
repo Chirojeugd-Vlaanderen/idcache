@@ -28,8 +28,8 @@ class CRM_IdCache_Cache_CustomField extends CRM_IdCache_Cache {
    * @param string $name Name of the custom field
    * @return int
    */
-  public static function getId($customGroupName, $name) {
-    return parent::getId('CustomField', $name, $customGroupName);
+   public static function getFieldId($customGroupName, $name) {
+    return self::getId('CustomField', $name, $customGroupName);
   }
 
   /**
@@ -40,7 +40,7 @@ class CRM_IdCache_Cache_CustomField extends CRM_IdCache_Cache {
    * @return int
    */
   public static function getApiField($customGroupName, $name) {
-    return "custom_" . self::getId($customGroupName, $name);
+    return "custom_" . self::getFieldId($customGroupName, $name);
   }
 
   /**
