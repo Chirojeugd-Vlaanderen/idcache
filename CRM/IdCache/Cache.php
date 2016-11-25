@@ -68,16 +68,6 @@ abstract class CRM_IdCache_Cache {
   }
 
   /**
-   * Returns the 'underlying' entity type.
-   *
-   * E.g. OptionValue is the underlying type of EventType.
-   *
-   * @param $entityType
-   * @return mixed
-   */
-  protected static abstract function getUnderlyingEntityType($entityType);
-
-  /**
    * Returns API params for the entity defined by $entityType, $name and $extra.
    *
    * @param string $name name of the CiviCRM entity

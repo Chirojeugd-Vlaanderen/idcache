@@ -18,40 +18,51 @@
  */
 
 /**
- * Generic ID cache class.
- *
- * This will work for entities that can be identified by their names.
+ * Custom field ID cache class.
  */
-class CRM_IdCache_Cache_Generic extends CRM_IdCache_Cache {
+class CRM_IdCache_Cache_CustomField extends CRM_IdCache_Cache {
+  /**
+   * Returns the ID of a CiviCRM custom field.
+   *
+   * @param string $customGroupName Name of the custom field set
+   * @param string $name Name of the custom field
+   * @return int
+   */
+  public static function getId($customGroupName, $name) {
+    return parent::getId('CustomField', $name, $customGroupName);
+  }
+
+  /**
+   * Returns the 'API name' of a CiviCRM custom field.
+   *
+   * @param string $customGroupName Name of the custom field set
+   * @param string $name Name of the custom field
+   * @return int
+   */
+  public static function getApiField($customGroupName, $name) {
+    return "custom_" . self::getId($customGroupName, $name);
+  }
 
   /**
    * @return array of entity type names that this class supports.
    */
-  public static function acceptedEntityTypes() {
-    return [
-      'CaseType',
-      'ContactType',
-      'CustomGroup',
-      'FinancialAccount',
-      'FinancialType',
-      'Group',
-      'LocationType',
-      'MembershipType',
-      'OptionGroup',
-      'RelationshipType',
-      'Tag',
-    ];
+  public static function acceptedEntityTypes()
+  {
+    return ['CustomField'];
   }
 
   /**
    * Returns API params for the entity defined by $entityType, $name and $extra.
    *
    * @param string $name name of the CiviCRM entity
-   * @param string $extra (optional) extra information to determine entity
+   * @param string $extra name of the custom field set
    * @return array
    */
   protected static function getApiParams($name, $extra)
   {
-    return ['name' => $name];
+    return [
+      'name' => $name,
+      'custom_group_id' => $extra,
+    ];
   }
 }
