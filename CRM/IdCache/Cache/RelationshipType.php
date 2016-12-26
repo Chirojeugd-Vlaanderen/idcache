@@ -20,35 +20,13 @@
 /**
  * Custom field ID cache class.
  */
-class CRM_IdCache_Cache_CustomField extends CRM_IdCache_Cache {
-  /**
-   * Returns the ID of a CiviCRM custom field.
-   *
-   * @param string $customGroupName Name of the custom field set
-   * @param string $name Name of the custom field
-   * @return int
-   */
-   public static function getFieldId($customGroupName, $name) {
-    return self::getId('CustomField', $name, $customGroupName);
-  }
-
-  /**
-   * Returns the 'API name' of a CiviCRM custom field.
-   *
-   * @param string $customGroupName Name of the custom field set
-   * @param string $name Name of the custom field
-   * @return string
-   */
-  public static function getApiField($customGroupName, $name) {
-    return "custom_" . self::getFieldId($customGroupName, $name);
-  }
-
+class CRM_IdCache_Cache_RelationshipType extends CRM_IdCache_Cache {
   /**
    * @return array of entity type names that this class supports.
    */
   public static function acceptedEntityTypes()
   {
-    return ['CustomField'];
+    return ['RelationshipType'];
   }
 
   /**
@@ -61,8 +39,7 @@ class CRM_IdCache_Cache_CustomField extends CRM_IdCache_Cache {
   protected static function getApiParams($name, $extra)
   {
     return [
-      'name' => $name,
-      'custom_group_id' => $extra,
+      'name_a_b' => $name,
     ];
   }
 }

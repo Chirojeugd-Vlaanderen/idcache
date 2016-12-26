@@ -38,7 +38,6 @@ class CRM_IdCache_Cache_Generic extends CRM_IdCache_Cache {
       'LocationType',
       'MembershipType',
       'OptionGroup',
-      'RelationshipType',
       'Tag',
     ];
   }
