@@ -20,7 +20,7 @@
 /**
  * Option value ID cache class.
  */
-class CRM_IdCache_Cache_OptionValue {
+class CRM_IdCache_Cache_OptionValue extends CRM_IdCache_Cache {
  /**
    * @return array of entity type names that this class supports.
    */
