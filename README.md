@@ -19,7 +19,7 @@ Suppose you define your custom fields with configitems, like in the example file
 [custom_groups.json](https://github.com/CiviCooP/org.civicoop.configitems/blob/master/resources_examples/custom_groups.json).
 Then you can create classes like this:
 
-```
+```php
 public class MyFields() {
   static function SCHOOL_NAME() {
     return CRM_IdCache_Cache_CustomField::getApiField('college_degree', 'school_name');
@@ -33,9 +33,11 @@ public class MyFields() {
 
 Now every time you want to use these fields in an API call, you can do this as follows:
 
-    $result = civicrm_api3('Contact', 'get', [
-      MyFields::SCHOOL_NAME() => 'some school name',
-    ]);
+```php
+$result = civicrm_api3('Contact', 'get', [
+  MyFields::SCHOOL_NAME() => 'some school name',
+]);
+```
 
 This has several advantages:
 
