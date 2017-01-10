@@ -5,13 +5,16 @@ based on their names. It uses CiviCRM's cache to reduce database access.
 
 A couple of examples might make things clear:
 
-    // retrieve the group id of the group with name mygroup.
-    $myGroupId = CRM_IdCache_Cache_Generic::getId('Group', 'mygroup');
-    // retrieve an id of a custom field
-    $myCustomFieldId = CRM_IdCache_Cache_CustomField::getFieldId('Volunteer_Information', 'camera_skill_level');
-    // retrieve the field name of the custom field for use with the API.
-    $myApiField = CRM_IdCache_Cache_CustomField::getApiField('Volunteer_Information', 'camera_skill_level');
+```php
+// retrieve the group id of the group with name mygroup.
+$myGroupId = CRM_IdCache_Cache_Generic::getId('Group', 'mygroup');
 
+// retrieve an id of a custom field
+$myCustomFieldId = CRM_IdCache_Cache_CustomField::getFieldId('Volunteer_Information', 'camera_skill_level');
+
+// retrieve the field name of the custom field for use with the API.
+$myApiField = CRM_IdCache_Cache_CustomField::getApiField('Volunteer_Information', 'camera_skill_level');
+```
 
 The idea is to use this in combination with 
 [org.civicoop.configitems](https://github.com/CiviCooP/org.civicoop.configitems).
@@ -19,7 +22,7 @@ Suppose you define your custom fields with configitems, like in the example file
 [custom_groups.json](https://github.com/CiviCooP/org.civicoop.configitems/blob/master/resources_examples/custom_groups.json).
 Then you can create classes like this:
 
-```
+```php
 public class MyFields() {
   static function SCHOOL_NAME() {
     return CRM_IdCache_Cache_CustomField::getApiField('college_degree', 'school_name');
@@ -33,9 +36,11 @@ public class MyFields() {
 
 Now every time you want to use these fields in an API call, you can do this as follows:
 
-    $result = civicrm_api3('Contact', 'get', [
-      MyFields::SCHOOL_NAME() => 'some school name',
-    ]);
+```php
+$result = civicrm_api3('Contact', 'get', [
+  MyFields::SCHOOL_NAME() => 'some school name',
+]);
+```
 
 This has several advantages:
 
