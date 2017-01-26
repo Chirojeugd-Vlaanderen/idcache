@@ -56,8 +56,15 @@ class CRM_IdCache_Cache_OptionValue extends CRM_IdCache_Cache {
    * @param $name Name of the option value.
    * @param $extra Name of the option group.
    * @return array
+   * @throws \Exception
    */
-  protected static function getApiParams($name, $extra) {
+  protected static function getApiParams($name, $extra = NULL) {
+    // I need to specify $extra = NULL because the signature of this function
+    // should match the signature of the parent function. Bit in this case,
+    // if $extra is NULL, that's an error.
+    if (empty($extra)) {
+      throw new Exception('You should provide the option group id.');
+    }
     return [
       'name' => $name,
       'option_group_id' => $extra,
