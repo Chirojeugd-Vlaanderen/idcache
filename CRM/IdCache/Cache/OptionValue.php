@@ -31,17 +31,19 @@ class CRM_IdCache_Cache_OptionValue extends CRM_IdCache_Cache {
   /**
    * Returns the *value* (not the ID) of a CiviCRM option value.
    *
-   * @param $optionGroupName name of the option group
+   * This is very similar to Cache::getId.
+   *
    * @param $name name of the option value
+   * @param $optionGroupName name of the option group
    * @return string
    */
-  public static function getValue($optionGroupName, $name) {
+  public static function getValue($name, $optionGroupName) {
     // Use a custom cache key, because the 'ordinary' cache key might be
     // used to cache the ID, and not the value.
-    $cacheKey = self::getCacheKey('OptionValue', $name) . '_value';
+    $cacheKey = self::getCacheKey('OptionValue', $name, $optionGroupName) . '_value';
     $result = Civi::cache()->get($cacheKey);
     if (empty($result)) {
-      $params = static::getApiParams($name);
+      $params = static::getApiParams($name, $optionGroupName);
       // If the entity is not found, the line below will throw an exception.
       $entity = civicrm_api3('OptionValue', 'getsingle', $params);
       $result = $entity['value'];
