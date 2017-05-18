@@ -1,4 +1,4 @@
-#be.chiro.civi.idcache
+# be.chiro.civi.idcache
 
 This extension provides functions to retrieve ID's of CiviCRM entities
 based on their names. It uses CiviCRM's cache to reduce database access.
@@ -15,6 +15,8 @@ $myCustomFieldId = CRM_IdCache_Cache_CustomField::getFieldId('Volunteer_Informat
 // retrieve the field name of the custom field for use with the API.
 $myApiField = CRM_IdCache_Cache_CustomField::getApiField('Volunteer_Information', 'camera_skill_level');
 ```
+
+## configitems
 
 The idea is to use this in combination with 
 [org.civicoop.configitems](https://github.com/CiviCooP/org.civicoop.configitems).
@@ -47,6 +49,33 @@ This has several advantages:
 * your code does not depend on ID's directly, so it nicely testable.
 * the ID's are cached, you don't have to access the database for knowing them.
 * because of the static functions, your IDE will prevent you from writing typo's in field names.
+
+## issues
+
+Suppose you want to use configitems to create a smart group like this:
+
+```
+  "some_smart_group": {
+    "name": "some_smart_group",
+    "title": "Some smart group",
+    "description": "My description",
+    "is_active": 1,
+    "is_reserved": 1,
+    "form_values": [
+      ["relationship_type_id", "=", "13_a_b"],
+      ["relation_status", "=", 0],
+      ["privacy_options", "IN", ["is_opt_out"]],
+      ["privacy_toggle", "=", 1],
+      ["custom_13", "IN", ["L"]]
+    ]
+  }
+```
+
+It would be cool if we could get rid of the 13 in relationship_type_id, and the custom_13, using configitems.
+But I guess we'll have to fix this in configitems itself. Which will create a dependency to idcache, so maybe
+it is better to merge idcache into configitems.
+
+## contribute!
 
 As with all my extensions ;) this is work in progress. I use some kind of object oriented programming,
 but it does not feels completely right. And the caching is only as good or bad as the cache system
